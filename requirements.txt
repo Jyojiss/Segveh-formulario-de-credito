@@ -1,5 +1,5 @@
 reportlab==3.6.5
-setuptools==65.5.0
+setuptools==65.5.2
 fastapi==0.95.1
 uvicorn==0.22.0
 pypdf==3.8.1
