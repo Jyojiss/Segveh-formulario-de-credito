@@ -24,6 +24,7 @@ if not TEMPLATE_PDF.exists():
 OUT_DIR = BASE_DIR / "salidas"
 os.makedirs(OUT_DIR, exist_ok=True)
 
+
 # =========================
 # MAPEO DE CAMPOS -> X/Y
 # =========================
