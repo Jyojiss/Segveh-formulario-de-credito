@@ -1,5 +1,5 @@
-reportlab==4.4.4
 setuptools==65.5.0
+reportlab==3.5.59
 wheel
 fastapi==0.95.1
 uvicorn==0.22.0
