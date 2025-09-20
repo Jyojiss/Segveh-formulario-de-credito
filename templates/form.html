@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solicitud de crédito</title>
+    <link rel="stylesheet" href="/static/mini.css">
+    <style>
+      form { max-width: 980px; margin: 2rem auto; }
+      fieldset { margin-bottom: 1.2rem; }
+      label { display: grid; grid-template-columns: 260px 1fr; gap: .8rem; align-items: center; margin: .35rem 0; }
+      legend { font-weight: 700; margin-bottom: .4rem; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <h2>Solicitud de crédito - Persona Natural</h2>
+
+    <!-- IMPORTANTE: enctype para archivos -->
+    <form action="/generar" method="post" autocomplete="on" enctype="multipart/form-data">
+
+      <!-- 1) Datos de radicación -->
+      <fieldset>
+        <legend>Datos de radicación</legend>
+        <label>Vitrina / Asesor <input name="vitrina_asesor"></label>
+        <label>CC Asesor <input name="cc_asesor"></label>
+        <label>Fecha de radicación (dd/mm/aaaa) <input name="fecha_rad" placeholder="dd/mm/aaaa"></label>
+        <label>Línea de financiación
+          <select name="linea_financiacion">
+            <option value="">-- Seleccione --</option>
+            <option>Vehiculo</option><option>Motos</option><option>Poliza</option><option>Otros</option>
+          </select>
+        </label>
+        <label>Tipo de solicitante
+          <select name="tipo_solicitante">
+            <option value="">-- Seleccione --</option>
+            <option>Deudor</option><option>Codeudor</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- 2) Datos del bien / vehículo (superior) -->
+      <fieldset>
+        <legend>Datos del bien / vehículo</legend>
+        <label>Estado del bien
+          <select name="estado_bien">
+            <option value="">-- Seleccione --</option>
+            <option>Nuevo</option><option>Usado</option>
+          </select>
+        </label>
+        <label>Plazo (meses) <input type="number" name="plazo" min="0"></label>
+
+        <label>Marca <input name="marca"></label>
+        <label>Línea <input name="linea"></label>
+        <label>Tipo de servicio <input name="tipo_servicio"></label>
+        <label>Modelo <input name="modelo"></label>
+
+        <label>Vr Comercial <input type="number" step="0.01" name="vr_comercial"></label>
+        <label>Vr Financiación <input type="number" step="0.01" name="vr_financiacion"></label>
+      </fieldset>
+
+      <!-- 3) Información personal -->
+      <fieldset>
+        <legend>Información personal</legend>
+        <label>Apellidos y nombres <input name="apellidos_nombres" required></label>
+
+        <label>Sexo
+          <select name="sexo"><option value="">-- Seleccione --</option><option>F</option><option>M</option></select>
+        </label>
+        <label>Tipo de ID
+          <select name="tipo_id" required><option value="">-- Seleccione --</option><option>CC</option><option>CE</option></select>
+        </label>
+        <label>Número de ID <input name="numero_id" required></label>
+
+        <label>Fecha expedición (dd/mm/aaaa) <input name="fecha_expedicion" placeholder="dd/mm/aaaa"></label>
+        <label>Ciudad expedición <input name="ciudad_expedicion"></label>
+
+        <label>Fecha de nacimiento (dd/mm/aaaa) <input name="fecha_nac" placeholder="dd/mm/aaaa"></label>
+        <label>Ciudad de nacimiento <input name="ciudad_nac"></label>
+
+        <label>Nacionalidad <input name="nacionalidad"></label>
+        <label>Estado civil <input name="estado_civil"></label>
+
+        <label>Nivel de estudios <input name="nivel_estudios"></label>
+        <label>Tipo de vivienda <input name="tipo_vivienda"></label>
+        <label>Personas a cargo <input type="number" name="personas_a_cargo" min="0"></label>
+
+        <label>Dirección <input name="direccion" required></label>
+        <label>Ciudad <input name="ciudad" required></label>
+
+        <label>Celular <input name="celular" required></label>
+        <label>Correo electrónico <input type="email" name="email" required></label>
+      </fieldset>
+
+      <!-- 4) Actividad económica -->
+      <fieldset>
+        <legend>Actividad económica</legend>
+        <label>Actividad económica
+          <select name="actividad_economica">
+            <option value="">-- Seleccione --</option>
+            <option>Empleado</option><option>Independiente</option><option>Rentista</option>
+            <option>Pensionado</option><option>Transportador</option><option>Profesional independiente</option>
+            <option>Otro</option>
+          </select>
+        </label>
+
+        <label>Empresa donde trabaja / Nombre empresa <input name="empresa"></label>
+
+        <!-- Datos adicionales del trabajo -->
+        <label>Empresa donde trabaja (extra) <input name="empresa_trabajo_alt"></label>
+        <label>Dirección trabajo <input name="direccion_trabajo"></label>
+        <label>Ciudad trabajo <input name="ciudad_trabajo"></label>
+        <label>NIT trabajo <input name="nit_trabajo"></label>
+        <label>Teléfono trabajo <input name="telefono_trabajo"></label>
+
+        <label>Ingresos mensuales <input type="number" step="0.01" name="ingresos_mensuales"></label>
+        <label>Antigüedad (meses) <input type="number" name="antiguedad" min="0"></label>
+        <label>Cargo <input name="cargo"></label>
+        <label>Tipo de contrato <input name="tipo_contrato"></label>
+
+        <label>Descripción otros ingresos <input name="otros_ingresos"></label>
+
+        <label>¿Maneja recursos públicos (PEP)?
+          <select name="pep"><option value="">-- Seleccione --</option><option>Si</option><option>No</option></select>
+        </label>
+      </fieldset>
+
+      <!-- 5) Información del cónyuge (sin ciudad/fecha de nacimiento) -->
+      <fieldset>
+        <legend>Información del cónyuge</legend>
+        <label>Apellidos y nombres <input name="conyuge_nombre"></label>
+        <label>Tipo de ID
+          <select name="conyuge_tipo_id"><option value="">-- Seleccione --</option><option>CC</option><option>CE</option></select>
+        </label>
+        <label>Número de ID <input name="conyuge_numero_id"></label>
+        <label>Celular <input name="conyuge_celular"></label>
+        <label>Correo electrónico cónyuge <input type="email" name="email_conyuge"></label>
+      </fieldset>
+
+      <!-- 6) Ingresos y egresos -->
+      <fieldset>
+        <legend>Ingresos y egresos</legend>
+        <label>Sueldo básico <input type="number" step="0.01" name="sueldo_basico"></label>
+        <label>Comisiones <input type="number" step="0.01" name="comisiones"></label>
+        <label>Otros ingresos (valor) <input type="number" step="0.01" name="otros_ingresos_valor"></label>
+        <label>Total ingresos <input type="number" step="0.01" name="total_ingresos"></label>
+
+        <label>Gastos familiares <input type="number" step="0.01" name="gastos_familiares"></label>
+        <label>Préstamos bancarios <input type="number" step="0.01" name="prestamos_bancarios"></label>
+        <label>Otros gastos (valor) <input type="number" step="0.01" name="otros_gastos"></label>
+        <label>Total egresos <input type="number" step="0.01" name="total_egresos"></label>
+
+        <label>Detalle otros gastos <input name="detalle_otros_gastos"></label>
+      </fieldset>
+
+      <!-- 7) Bien / Servicio (intermedio) -->
+      <fieldset>
+        <legend>Bien / Servicio</legend>
+        <label>Tipo de bien <input name="tipo_bien"></label>
+        <label>Dirección o tipo de servicio <input name="direccion_servicio"></label>
+        <label>Vr Comercial (bien / servicio) <input type="number" step="0.01" name="vr_comercial_bien"></label>
+      </fieldset>
+
+      <!-- 8) Respaldo patrimonial -->
+      <fieldset>
+        <legend>Respaldo patrimonial</legend>
+        <label>Tipo bien (respaldo 2) <input name="tipo_bien_respaldo2"></label>
+        <label>Tipo servicio (respaldo 2) <input name="tipo_servicio_respaldo2"></label>
+        <label>Vr comercial (respaldo 2) <input type="number" step="0.01" name="vr_comercial_respaldo2"></label>
+      </fieldset>
+
+      <!-- 9) Referencias -->
+      <fieldset>
+        <legend>Referencias</legend>
+        <label>Familiar (nombre) <input name="ref_familiar"></label>
+        <label>Celular (familiar) <input name="ref_familiar_cel"></label>
+        <label>Parentesco (familiar) <input name="ref_familiar_parentesco"></label>
+
+        <label>Personal (nombre) <input name="ref_personal"></label>
+        <label>Celular (personal) <input name="ref_personal_cel"></label>
+        <label>Parentesco (personal) <input name="ref_personal_parentesco"></label>
+
+        <label>Comercial (nombre) <input name="ref_comercial"></label>
+        <label>Celular (comercial) <input name="ref_comercial_cel"></label>
+
+        <label>Comercial 2 (nombre) <input name="ref_comercial2"></label>
+        <label>Celular (comercial 2) <input name="ref_comercial2_cel"></label>
+
+        <!-- NIT de referencias -->
+        <label>NIT ref1 <input name="nit_ref1"></label>
+        <label>NIT ref2 <input name="nit_ref2"></label>
+      </fieldset>
+
+      <!-- 10) Firma (como imagen) -->
+      <fieldset>
+        <legend>Firma</legend>
+        <label>Adjuntar imagen de la firma (PNG / JPEG)
+          <input type="file" name="firma_img" accept="image/png,image/jpeg">
+        </label>
+      </fieldset>
+
+      <button type="submit">Generar PDF</button>
+    </form>
+  </body>
+</html>
