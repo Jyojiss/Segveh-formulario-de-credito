@@ -1,4 +1,5 @@
-reportlab==3.6.3
+reportlab==3.6.59
+--no-binary :all:
 setuptools==65.5.0
 wheel
 fastapi==0.95.1
