@@ -1,5 +1,26 @@
-/* static/mini.css */
-body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; }
-label { display:block; margin:10px 0; }
-input, select { width:100%; padding:8px; }
-button { padding:10px 14px; }
+body {
+  font-family: system-ui, sans-serif;
+  margin: 24px auto;
+  width: 100%;  /* Aseguramos que el body ocupe todo el ancho */
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+}
+
+button {
+  padding: 10px 14px;
+}
+
+/* Eliminamos la restricción del max-width del formulario */
+form {
+  width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
+  max-width: none; /* Eliminamos cualquier restricción */
+  margin: 0 auto; /* Centra el formulario */
+}

@@ -1,23 +1,104 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Solicitud de crédito</title>
     <link rel="stylesheet" href="/static/mini.css">
     <style>
-      form { max-width: 980px; margin: 2rem auto; }
-      fieldset { margin-bottom: 1.2rem; }
-      label { display: grid; grid-template-columns: 260px 1fr; gap: .8rem; align-items: center; margin: .35rem 0; }
-      legend { font-weight: 700; margin-bottom: .4rem; text-transform: uppercase; }
+      header {
+        background-color: #ffffff;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+      }
+
+      header img {
+        max-width: 250px;
+        margin-right: 25px;
+      }
+
+      h2 {
+        color: #333;
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      form {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      fieldset {
+        margin-bottom: 1.2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+
+      legend {
+        font-weight: 700;
+        margin-bottom: .4rem;
+        text-transform: uppercase;
+        color: #333;
+      }
+
+      label {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: .8rem;
+        align-items: center;
+        margin: .35rem 0;
+      }
+
+      input, select {
+        padding: .5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      input[type="number"] {
+        width: auto;
+      }
+
+      button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
     </style>
   </head>
   <body>
-    <h2>Solicitud de crédito - Persona Natural</h2>
+    <header>
+      <img src="static/BLANCO LOGO SEGVEH CONCESIONARIO 1080X566 .jpg" alt="Logo SEGVEH">
+      <h2>Solicitud de crédito - Persona Natural</h2>
+    </header>
 
     <!-- IMPORTANTE: enctype para archivos -->
     <form action="/generar" method="post" autocomplete="on" enctype="multipart/form-data">
 
-      <!-- 1) Datos de radicación -->
+<!-- 1) Datos de radicación -->
       <fieldset>
         <legend>Datos de radicación</legend>
         <label>Vitrina / Asesor <input name="vitrina_asesor"></label>
@@ -196,6 +277,8 @@
           <input type="file" name="firma_img" accept="image/png,image/jpeg">
         </label>
       </fieldset>
+
+
 
       <button type="submit">Generar PDF</button>
     </form>
