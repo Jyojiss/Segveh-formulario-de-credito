@@ -100,9 +100,60 @@
         background-color: #cc0000;  /* Rojo más oscuro en hover */
       }
 
-      button:active {
+            button:active {
         background-color: #990000;  /* Rojo más oscuro al hacer clic */
       }
+
+      input[type="text"],
+      input[type="email"],
+      input:not([type]) {
+        width: 98%;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-content {
+        background-color: #fff;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        text-align: justify;
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+
+      .modal-buttons button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #E60000;
+        color: white;
+        font-weight: bold;
+      }
+
+      .modal-buttons button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+    </style>
+
 
     </style>
   </head>
@@ -113,75 +164,92 @@
     </header>
 
     <form action="/generar" method="post" autocomplete="on" enctype="multipart/form-data">
-<!-- 1) Datos de radicación -->
+      <!-- 1) Datos de radicación -->
       <fieldset>
         <legend>Datos de radicación</legend>
-        <label>Vitrina / Asesor <input name="vitrina_asesor"></label>
-        <label>CC Asesor <input name="cc_asesor"></label>
-        <label>Fecha de radicación (dd/mm/aaaa) <input name="fecha_rad" placeholder="dd/mm/aaaa"></label>
+        <label>Fecha de radicación (dd/mm/aaaa) <input name="fecha_rad" placeholder="dd/mm/aaaa" required></label>
         <label>Línea de financiación
-          <select name="linea_financiacion">
+          <select name="linea_financiacion" required>
             <option value="">-- Seleccione --</option>
             <option>Vehiculo</option><option>Motos</option><option>Poliza</option><option>Otros</option>
           </select>
         </label>
         <label>Tipo de solicitante
-          <select name="tipo_solicitante">
+          <select name="tipo_solicitante" required>
             <option value="">-- Seleccione --</option>
             <option>Deudor</option><option>Codeudor</option>
           </select>
         </label>
       </fieldset>
 
-      <!-- 2) Datos del bien / vehículo (superior) -->
+      <!-- 2) Datos del bien / vehículo -->
       <fieldset>
         <legend>Datos del bien / vehículo</legend>
-        <label>Estado del bien
-          <select name="estado_bien">
+        <label>Tipo de vehículo
+          <select name="tipo_vehiculo" required>
             <option value="">-- Seleccione --</option>
             <option>Nuevo</option><option>Usado</option>
           </select>
         </label>
-        <label>Plazo (meses) <input type="number" name="plazo" min="0"></label>
-
-        <label>Marca <input name="marca"></label>
-        <label>Línea <input name="linea"></label>
-        <label>Tipo de servicio <input name="tipo_servicio"></label>
-        <label>Modelo <input name="modelo"></label>
-
-        <label>Vr Comercial <input type="number" step="0.01" name="vr_comercial"></label>
-        <label>Vr Financiación <input type="number" step="0.01" name="vr_financiacion"></label>
+        <label>Plazo (meses)
+          <select name="plazo" required>
+            <option value="">-- Seleccione --</option>
+            <option value="18">18</option>
+            <option value="24">24</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+            <option value="60">60</option>
+            <option value="72">72</option>
+          </select>
+        </label>
+        <label>Marca <input name="marca" required></label>
+        <label>Línea <input name="linea" required></label>
+        <label>Tipo de servicio <input name="tipo_servicio" required></label>
+        <label>Modelo <input name="modelo" required></label>
+        <label>Vr Comercial <input type="number" step="0.01" name="vr_comercial" required></label>
+        <label>Vr Financiación <input type="number" step="0.01" name="vr_financiacion" required></label>
       </fieldset>
 
       <!-- 3) Información personal -->
       <fieldset>
         <legend>Información personal</legend>
         <label>Apellidos y nombres <input name="apellidos_nombres" required></label>
-
         <label>Sexo
-          <select name="sexo"><option value="">-- Seleccione --</option><option>F</option><option>M</option></select>
+          <select name="sexo" required><option value="">-- Seleccione --</option><option>F</option><option>M</option></select>
         </label>
         <label>Tipo de ID
           <select name="tipo_id" required><option value="">-- Seleccione --</option><option>CC</option><option>CE</option></select>
         </label>
         <label>Número de ID <input name="numero_id" required></label>
-
-        <label>Fecha expedición (dd/mm/aaaa) <input name="fecha_expedicion" placeholder="dd/mm/aaaa"></label>
-        <label>Ciudad expedición <input name="ciudad_expedicion"></label>
-
-        <label>Fecha de nacimiento (dd/mm/aaaa) <input name="fecha_nac" placeholder="dd/mm/aaaa"></label>
-        <label>Ciudad de nacimiento <input name="ciudad_nac"></label>
-
-        <label>Nacionalidad <input name="nacionalidad"></label>
-        <label>Estado civil <input name="estado_civil"></label>
-
-        <label>Nivel de estudios <input name="nivel_estudios"></label>
-        <label>Tipo de vivienda <input name="tipo_vivienda"></label>
-        <label>Personas a cargo <input type="number" name="personas_a_cargo" min="0"></label>
-
+        <label>Fecha expedición (dd/mm/aaaa) <input name="fecha_expedicion" placeholder="dd/mm/aaaa" required></label>
+        <label>Ciudad expedición <input name="ciudad_expedicion" required></label>
+        <label>Fecha de nacimiento (dd/mm/aaaa) <input name="fecha_nac" placeholder="dd/mm/aaaa" required></label>
+        <label>Ciudad de nacimiento <input name="ciudad_nac" required></label>
+        <label>Nacionalidad <input name="nacionalidad" required></label>
+        <label>Estado civil
+          <select name="estado_civil" required>
+            <option value="">-- Seleccione --</option>
+            <option>Soltero(a)</option>
+            <option>Casado(a)</option>
+            <option>Unión libre</option>
+            <option>Separado(a)</option>
+            <option>Viudo(a)</option>
+          </select>
+        </label>
+        <label>Nivel de estudios
+          <select name="nivel_estudios" required>
+            <option value="">-- Seleccione --</option>
+            <option>Básica primaria</option>
+            <option>Básica secundaria</option>
+            <option>Técnico / Tecnólogo</option>
+            <option>Universitario</option>
+            <option>Posgrado</option>
+          </select>
+        </label>
+        <label>Tipo de vivienda <input name="tipo_vivienda" required></label>
+        <label>Personas a cargo <input type="number" name="personas_a_cargo" min="0" required></label>
         <label>Dirección <input name="direccion" required></label>
         <label>Ciudad <input name="ciudad" required></label>
-
         <label>Celular <input name="celular" required></label>
         <label>Correo electrónico <input type="email" name="email" required></label>
       </fieldset>
@@ -190,39 +258,33 @@
       <fieldset>
         <legend>Actividad económica</legend>
         <label>Actividad económica
-          <select name="actividad_economica">
+          <select name="actividad_economica" required>
             <option value="">-- Seleccione --</option>
             <option>Empleado</option><option>Independiente</option><option>Rentista</option>
             <option>Pensionado</option><option>Transportador</option><option>Profesional independiente</option>
             <option>Otro</option>
           </select>
         </label>
-
         <label>Empresa donde trabaja / Nombre empresa <input name="empresa"></label>
-
-        <!-- Datos adicionales del trabajo -->
-        <label>Empresa donde trabaja (extra) <input name="empresa_trabajo_alt"></label>
         <label>Dirección trabajo <input name="direccion_trabajo"></label>
-        <label>Ciudad trabajo <input name="ciudad_trabajo"></label>
+        <label>Ciudad trabajo <input name="ciudad_trabajo" required></label>
         <label>NIT trabajo <input name="nit_trabajo"></label>
         <label>Teléfono trabajo <input name="telefono_trabajo"></label>
-
-        <label>Ingresos mensuales <input type="number" step="0.01" name="ingresos_mensuales"></label>
-        <label>Antigüedad (meses) <input type="number" name="antiguedad" min="0"></label>
+        <label>Ingresos mensuales <input type="number" step="0.01" name="ingresos_mensuales" required></label>
+        <label>Antigüedad (meses) <input type="number" name="antiguedad" min="0" required></label>
         <label>Cargo <input name="cargo"></label>
         <label>Tipo de contrato <input name="tipo_contrato"></label>
-
-        <label>Descripción otros ingresos <input name="otros_ingresos"></label>
-
+        <label>Descripción otros ingresos <input name="otros_ingresos" required></label>
         <label>¿Maneja recursos públicos (PEP)?
-          <select name="pep"><option value="">-- Seleccione --</option><option>Si</option><option>No</option></select>
+          <select name="pep" required><option value="">-- Seleccione --</option><option>Si</option><option>No</option></select>
         </label>
       </fieldset>
 
-      <!-- 5) Información del cónyuge (sin ciudad/fecha de nacimiento) -->
+      <!-- 5) Información del cónyuge -->
       <fieldset>
         <legend>Información del cónyuge</legend>
         <label>Apellidos y nombres <input name="conyuge_nombre"></label>
+        <label>Empresa donde trabaja<input name="empresa_trabajo_alt"></label>
         <label>Tipo de ID
           <select name="conyuge_tipo_id"><option value="">-- Seleccione --</option><option>CC</option><option>CE</option></select>
         </label>
@@ -234,25 +296,23 @@
       <!-- 6) Ingresos y egresos -->
       <fieldset>
         <legend>Ingresos y egresos</legend>
-        <label>Sueldo básico <input type="number" step="0.01" name="sueldo_basico"></label>
+        <label>Ingreso base <input type="number" step="0.01" name="ingreso_base" required></label>
         <label>Comisiones <input type="number" step="0.01" name="comisiones"></label>
         <label>Otros ingresos (valor) <input type="number" step="0.01" name="otros_ingresos_valor"></label>
-        <label>Total ingresos <input type="number" step="0.01" name="total_ingresos"></label>
-
-        <label>Gastos familiares <input type="number" step="0.01" name="gastos_familiares"></label>
+        <label>Total ingresos <input type="number" step="0.01" name="total_ingresos" required></label>
+        <label>Gastos básicos <input type="number" step="0.01" name="gastos_basicos" required></label>
         <label>Préstamos bancarios <input type="number" step="0.01" name="prestamos_bancarios"></label>
         <label>Otros gastos (valor) <input type="number" step="0.01" name="otros_gastos"></label>
-        <label>Total egresos <input type="number" step="0.01" name="total_egresos"></label>
-
-        <label>Detalle otros gastos <input name="detalle_otros_gastos"></label>
+        <label>Total egresos <input type="number" step="0.01" name="total_egresos" required></label>
+        <label>Detalle otros gastos <input name="detalle_otros_gastos" required></label>
       </fieldset>
 
-      <!-- 7) Bien / Servicio (intermedio) -->
+      <!-- 7) Bien / Servicio -->
       <fieldset>
         <legend>Bien / Servicio</legend>
-        <label>Tipo de bien <input name="tipo_bien"></label>
-        <label>Dirección o tipo de servicio <input name="direccion_servicio"></label>
-        <label>Vr Comercial (bien / servicio) <input type="number" step="0.01" name="vr_comercial_bien"></label>
+        <label>Tipo de bien <input name="tipo_bien" required></label>
+        <label>Dirección o tipo de servicio <input name="direccion_servicio" required></label>
+        <label>Vr Comercial (bien / servicio) <input type="number" step="0.01" name="vr_comercial_bien" required></label>
       </fieldset>
 
       <!-- 8) Respaldo patrimonial -->
@@ -265,34 +325,113 @@
 
       <!-- 9) Referencias -->
       <fieldset>
-        <legend>Referencias</legend>
-        <label>Familiar (nombre) <input name="ref_familiar"></label>
-        <label>Celular (familiar) <input name="ref_familiar_cel"></label>
-        <label>Parentesco (familiar) <input name="ref_familiar_parentesco"></label>
-
-        <label>Personal (nombre) <input name="ref_personal"></label>
-        <label>Celular (personal) <input name="ref_personal_cel"></label>
-        <label>Parentesco (personal) <input name="ref_personal_parentesco"></label>
-
-        <label>Comercial (nombre) <input name="ref_comercial"></label>
-        <label>Celular (comercial) <input name="ref_comercial_cel"></label>
-
-        <label>Comercial 2 (nombre) <input name="ref_comercial2"></label>
-        <label>Celular (comercial 2) <input name="ref_comercial2_cel"></label>
-
-        <!-- NIT de referencias -->
-        <label>NIT ref1 <input name="nit_ref1"></label>
-        <label>NIT ref2 <input name="nit_ref2"></label>
+        <legend>Referencia personal</legend>
+        <label>Nombre <input name="ref_personal" required></label>
+        <label>Celular <input name="ref_personal_cel" required></label>
+        <label>Parentesco <input name="ref_personal_parentesco" required></label>
       </fieldset>
 
-      <!-- 10) Firma (como imagen) -->
+      <fieldset>
+        <legend>Referencia familiar</legend>
+        <label>Nombre <input name="ref_familiar" required></label>
+        <label>Celular <input name="ref_familiar_cel" required></label>
+        <label>Parentesco <input name="ref_familiar_parentesco" required></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Referencia comercial</legend>
+        <label>Nombre <input name="ref_comercial" required></label>
+        <label>Celular <input name="ref_comercial_cel" required></label>
+        <label>NIT <input name="nit_ref1" required></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Referencia comercial 2</legend>
+        <label>Nombre <input name="ref_comercial2"></label>
+        <label>Celular <input name="ref_comercial2_cel"></label>
+        <label>NIT <input name="nit_ref2"></label>
+      </fieldset>
+
+      <!-- 10) Firma -->
       <fieldset>
         <legend>Firma</legend>
         <label>Adjuntar imagen de la firma (PNG / JPEG)
-          <input type="file" name="firma_img" accept="image/png,image/jpeg">
+          <input type="file" name="firma_img" accept="image/png,image/jpeg" required>
         </label>
       </fieldset>
-      <button type="submit">Generar PDF</button>
+
+      <button type="submit">Generar solicitud</button>
+      <!-- MODAL DE CONFIRMACIÓN -->
+      <div id="modalConfirmacion" class="modal">
+        <div class="modal-content">
+          <h3>Autorización y declaración</h3>
+          <p>
+            Declaro que la información aquí suministrada es verídica y autorizo expresa, voluntaria e irrevocable a 
+            <strong>SegVeh vehículos</strong> o a quien represente sus derechos, a la entidad que esta compañía delegue o a su cesionario 
+            o a quien en el futuro haga sus veces como titular del crédito o servicio solicitado, para:
+            <br><br>
+            a) Consultar, procesar y solicitar, en cualquier tiempo, en Datacrédito y/o Cifin o en cualquier otra base de datos manejada 
+            por un operador, toda la información relevante para conocer mi desempeño como deudor, mi capacidad de pago, la viabilidad 
+            para entablar o mantener una relación contractual, o para cualquier otra finalidad, incluyendo sin limitarse la realización 
+            de campañas de mercadeo, ofrecimiento de productos y publicidad en general.  
+            <br><br>
+            b) Reportar y divulgar a las centrales de información Datacrédito y/o Cifin y de entidades financieras en Colombia, o a 
+            cualquier otra base de datos manejada por un operador de datos, tratados o sin tratar, mi información personal, comercial 
+            y financiera, así como la información referente a mi comportamiento comercial y/o crediticio respecto a mi cumplimiento o 
+            incumplimiento de mis obligaciones crediticias, mis deberes legales de contenido patrimonial, mis datos de ubicación y 
+            contacto, sus solicitudes de crédito así como otros atinentes a mis relaciones comerciales, financieras y socioeconómicas.
+            <br><br>
+            Autorizo a <strong>SegVeh vehículos</strong> para el tratamiento de mis datos personales conforme a lo dispuesto por la ley.
+          </p>
+
+          <label style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+            <input type="checkbox" id="aceptoTerminos"> Acepto los términos y autorizo el tratamiento de mis datos.
+          </label>
+
+          <div class="modal-buttons">
+            <button id="btnGenerar" disabled>Generar solicitud</button>
+            <button id="btnCancelar" style="background-color:#aaa;">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const form = document.querySelector('form');
+        const modal = document.getElementById('modalConfirmacion');
+        const btnGenerar = document.getElementById('btnGenerar');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const check = document.getElementById('aceptoTerminos');
+
+        // Interceptar el envío del formulario
+        form.addEventListener('submit', function (e) {
+          e.preventDefault(); // evita envío inmediato
+          modal.style.display = 'flex'; // muestra el popup
+        });
+
+        // Habilitar botón de generar cuando se marca el check
+        check.addEventListener('change', () => {
+          btnGenerar.disabled = !check.checked;
+        });
+
+        // Enviar formulario real si acepta
+        btnGenerar.addEventListener('click', () => {
+          modal.style.display = 'none';
+          form.submit(); // ahora sí se envía
+        });
+
+        // Cerrar el modal al presionar "Cancelar"
+        btnCancelar.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.style.display = 'none';
+        });
+
+        // Cerrar el modal al hacer clic fuera del cuadro
+        window.addEventListener('click', (event) => {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
+      </script>
     </form>
   </body>
 </html>

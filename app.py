@@ -30,8 +30,6 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # =========================
 FIELD_MAP = {
     # ===== ENCABEZADO / META =====
-    "vitrina_asesor":            {"page": 0, "x": 105,  "y": 785},
-    "cc_asesor":                 {"page": 0, "x": 210, "y": 785},
     "fecha_rad":                 {"page": 0, "x": 308, "y": 785},  # dd/mm/aaaa
 
     "linea_financiacion":        {"page": 0, "x": 100,  "y": 771},  # Vehiculo/Motos/Poliza/Otros
@@ -83,7 +81,7 @@ FIELD_MAP = {
     "modelo":                    {"page": 0, "x": 308, "y": 750},
 
     "estado_bien":               {"page": 0, "x": 380, "y": 757},
-    "plazo":                     {"page": 0, "x": 505, "y": 757},
+    "plazo":                     {"page": 0, "x": 505, "y": 759},
     "vr_comercial":              {"page": 0, "x": 395, "y": 745},
     "vr_financiacion":           {"page": 0, "x": 502, "y": 745},
 
